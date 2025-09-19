@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Page Taken Down From Ahmed Naveed</title>
+  <link rel="icon" href="files/favicon.ico" type="image/x-icon">
+
+  <style>
+    :root {
+      --bg: #000;
+      --accent: #ff2b2b;
+      --accent-dim: #9f0f0f;
+      --text: #eaeaea;
+      --mono: "Consolas", "Courier New", monospace;
+    }
+
+    html,body { height:100%; margin:0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      font-family: var(--mono);
+      -webkit-font-smoothing:antialiased;
+      user-select:none;
+      cursor: auto;
+      padding: 32px;
+      box-sizing:border-box;
+    }
+
+    .container { max-width:1000px; width:100%; text-align:center; }
+
+    img.logo {
+      width:350px; height:auto; margin-top:6px;
+      cursor:pointer; transition:transform .25s ease;
+    }
+    img.logo:focus { outline:2px solid #444; }
+
+    img.logo:hover { transform:scale(1.05); }
+
+    .headline {
+      margin-top:20px;
+      color:var(--accent);
+      font-size:clamp(1.4rem, 2.2vw, 1.9rem);
+      text-transform:uppercase;
+      font-weight:bold;
+      letter-spacing:1px;
+      animation: flicker .8s infinite alternate;
+    }
+
+    .sub {
+      margin-top:12px;
+      color:var(--text);
+      font-size:1rem;
+      line-height:1.4;
+      opacity:.95;
+    }
+
+    .emphasis {
+      margin-top:18px;
+      color:var(--accent-dim);
+      font-weight:600;
+      font-size:1.12rem;
+      animation: glowing 1.5s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0%,100% { opacity:1; }
+      50% { opacity:0.6; }
+    }
+    @keyframes glowing {
+      0% { text-shadow: 0 0 3px var(--accent), 0 0 6px var(--accent); }
+      50% { text-shadow: 0 0 10px var(--accent), 0 0 18px var(--accent); }
+      100% { text-shadow: 0 0 3px var(--accent), 0 0 6px var(--accent); }
+    }
+
+    /* typing lines */
+    .messages { margin-top:20px; max-width:760px; margin-left:auto; margin-right:auto; }
+    .line {
+      color: #9bff7a;
+      font-size:1.05rem;
+      overflow:hidden;
+      white-space:nowrap;
+      width:0;
+      display:inline-block;
+      animation: typing 2.2s steps(30,end) forwards;
+    }
+    .delay-1 { animation-delay:0s; }
+    .delay-2 { animation-delay:2.6s; }
+    .delay-3 { animation-delay:5.2s; }
+    .delay-4 { animation-delay:7.8s; }
+    .delay-5 { animation-delay:10.4s; }
+
+    @keyframes typing { from { width:0 } to { width:100% } }
+
+    /* small helper */
+    .sr-only { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+
+    /* responsive */
+    @media (max-width:420px) {
+      img.logo { width:220px; }
+      .headline { font-size:1.2rem; }
+      .line { font-size:0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <audio id="bg-audio" src="files/audio.mp3" preload="auto" loop aria-hidden="true"></audio>
+
+    <button id="logoBtn" aria-label="Play demo audio" style="background:none;border:0;padding:0;">
+      <img src="files/image.png" alt="Demo logo" class="logo" id="logoImage" />
+    </button>
+
+    <h1 class="headline" id="mainTitle">AHMED NAVEED WAS HERE</h1>
+
+    <p class="emphasis">This page domain is owned by AHMED NAVEED Only.</p>
+
+    <div class="messages" id="messages" aria-live="polite" style="margin-top:18px">
+      <div><span class="line delay-1">We are Anonymous.</span></div>
+      <div><span class="line delay-2">We are Legion.</span></div>
+      <div><span class="line delay-3">We do not forgive.</span></div>
+      <div><span class="line delay-4">We do not forget.</span></div>
+      <div><span class="line delay-5">Expect Us.</span></div>
+      <div><span class="line delay-6">AHMED NAVEED WAS HERE.</span></div>
+    </div>
+  </div>
+
+  <noscript>
+    <p style="color:#ffcc66;text-align:center;margin-top:18px">Enable JavaScript to view the demo fully.</p>
+  </noscript>
+
+  <script>
+    // Elements
+    const audio = document.getElementById('bg-audio');
+    const logoBtn = document.getElementById('logoBtn');
+
+    // Play audio from a safe position - note: many browsers block autoplay unless user interacts
+    function playAudio() {
+      try {
+        if (audio.duration && audio.duration > 50) {
+          audio.currentTime = 46;
+        }
+      } catch(e) { /* ignore if not ready */ }
+
+      audio.play().catch(err => {
+        // Autoplay blocked - no big deal
+        console.debug('Playback blocked or failed:', err);
+      });
+    }
+
+    logoBtn.addEventListener('click', function(e){
+      playAudio();
+      // reveal typing lines by forcing reflow (replay animation)
+      document.getElementById('messages').querySelectorAll('.line').forEach((el) => {
+        el.style.animation = 'none';
+        void el.offsetWidth; // trigger reflow
+        el.style.animation = '';
+      });
+    });
+
+    // We intentionally avoid blocking devtools or keyboard combos - it's ineffective and frustrates users.
+  </script>
+</body>
+</html>
